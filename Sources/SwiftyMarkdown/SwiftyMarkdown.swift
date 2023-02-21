@@ -439,18 +439,16 @@ If that is not set, then the system default will be used.
         return attributedString
     }
     
-    public enum ParsedMarkdownElement: Identifiable {
+    public enum ParsedMarkdownElement: Identifiable, Equatable {
+        public static func == (lhs: ParsedMarkdownElement, rhs: ParsedMarkdownElement) -> Bool {
+            lhs.id == rhs.id
+        }
+        
         public var id: UUID {
             return UUID()
         }
         case string(NSMutableAttributedString)
         case image(caption: String, urlString: String)
-    }
-    
-    public extension ParsedMarkdownElement: Equatable {
-        public static func == (lhs: ParsedMarkdownElement, rhs: ParsedMarkdownElement) -> Bool {
-            lhs.id == rhs.id
-        }
     }
     
     // Cases for detcted markdown lines that can be used as delimiter
